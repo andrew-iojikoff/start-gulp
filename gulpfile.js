@@ -121,7 +121,7 @@ gulp.task('_js', function() {
 });
 
 gulp.task('clean', function(){
-    return del.sync('dist/js');
+    return del.sync(['dist/**']);
 });
 
 
@@ -135,9 +135,12 @@ gulp.task('default', ['sass', 'js', 'browserSync'], function(){
    gulp.watch('src/js/**/*.js', browserSync.reload);  
 });
 
-gulp.task('build', ['clean', 'img', '_sass', 'jsLibs', '_js'], function(){
+gulp.task('build', ['clean', 'img', '_sass', '_js'], function(){
     var buildLib= gulp.src('vendor/**/*.js')
     .pipe(gulp.dest('dist/js'));
+
+    var buildLib= gulp.src('src/*.html')
+    .pipe(gulp.dest('dist/'));
 
     var buildFonts = gulp.src('src/fonts/**/*')
     .pipe(gulp.dest('dist/fonts/'));
